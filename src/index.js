@@ -19,7 +19,7 @@ export class App extends React.Component {
     super(props);
 
     const sdkValue = props.sdk.field.getValue();
-    const initialValue = { width: 0, height: 0 };
+    const initialValue = { width: 50, height: 70 };
     const value = sdkValue ? sdkValue : initialValue;
 
     this.state = { value };
