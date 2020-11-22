@@ -1,0 +1,8 @@
+{
+  "id": "poster-default-size-extension",
+  "name": "poster-default-size-extension",
+  "srcdoc": "./build/index.html",
+  "fieldTypes": [
+    "Object"
+  ]
+}
