@@ -2,11 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import toNumber from 'lodash/toNumber';
-import { SelectField, Option } from '@contentful/forma-36-react-components';
+import { RadioButtonField, FieldGroup } from '@contentful/forma-36-react-components';
 import { init } from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-tokens/dist/css/index.css';
 import './index.css';
+
+const sizes = [
+  { orientation: 'portrait', width: 50, height: 70 },
+  { orientation: 'portrait', width: 40, height: 50 },
+  { orientation: 'portrait', width: 30, height: 40 },
+  { orientation: 'portrait', width: 21, height: 30 },
+
+  { orientation: 'landscape', width: 70, height: 50 },
+  { orientation: 'landscape', width: 50, height: 40 },
+  { orientation: 'landscape', width: 40, height: 30 },
+  { orientation: 'landscape', width: 30, height: 21 },
+
+  { orientation: 'square', width: 50, height: 50 },
+  { orientation: 'square', width: 30, height: 30 },
+];
+
+const getInitialValue = () => ({ width: 0, height: 0 })
 
 const parseSize = (size) => size.split('x');
 
@@ -19,14 +36,23 @@ export class App extends React.Component {
     super(props);
 
     const sdkValue = props.sdk.field.getValue();
-    const initialValue = { width: 50, height: 70 };
+    const initialValue = getInitialValue();
     const value = sdkValue ? sdkValue : initialValue;
+    const orientation = 'landscape';
 
-    this.state = { value };
+    this.state = { value, orientation };
   }
 
   componentDidMount() {
     this.props.sdk.window.startAutoResizer();
+
+    const orientationField = this.props.sdk.entry.fields.orientation;
+
+    orientationField.onValueChanged((orientation = 'landscape') => {
+      this.setState((prevState) => {
+        return { ...prevState, orientation, value: getInitialValue() };
+      });
+    });
   }
 
   onSave = (value) => this.props.sdk.field.setValue(value);
@@ -54,31 +80,34 @@ export class App extends React.Component {
 
   render() {
     const { width, height } = this.state.value;
+    const { orientation } = this.state;
+    const currentValue = `${width}x${height}`;
 
     return (
       <div className="App">
         <div className="App__content">
-          <div className="App__item">
-            <div className="App__field">
-              <SelectField
-                id="defaultSize"
-                name="defaultSize"
-                labelText="Size"
-                value={`${width}x${height}`}
-                onChange={(event) => this.onChange(event.target.value)}
-              >
-                <Option value="50x70">50x70</Option>
-                <Option value="40x50">40x50</Option>
-                <Option value="30x40">30x40</Option>
-                <Option value="21x30">21x30</Option>
-                <Option value="70x50">70x50</Option>
-                <Option value="50x40">50x40</Option>
-                <Option value="40x30">40x30</Option>
-                <Option value="30x21">30x21</Option>
-                <Option value="30x30">30x30</Option>
-              </SelectField>
-            </div>
-          </div>
+          <FieldGroup>
+            {
+              sizes
+                .filter((size) => size.orientation === orientation)
+                .map((size) => {
+                  const value = `${size.width}x${size.height}`;
+
+                  return (
+                    <RadioButtonField
+                      key={value}
+                      labelText={value}
+                      labelIsLight
+                      name={value}
+                      checked={value === currentValue}
+                      value={value}
+                      id={value}
+                      onChange={(event) => this.onChange(event.target.value)}
+                    />
+                  );
+                })
+            }
+          </FieldGroup>
         </div>
       </div>
     );

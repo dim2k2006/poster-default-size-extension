@@ -11,19 +11,7 @@ div {
 
 .App__content {
   margin-bottom: var(--spacing-xl);
-}
-
-.App__item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-bottom: var(--spacing-m);
-  padding-right: 50px;
-}
-
-.App__field {
-  width: 48%;
-  margin-right: var(--spacing-m);
+  padding-top: var(--spacing-m);
 }
 
 .App__remove {
