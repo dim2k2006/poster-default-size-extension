@@ -27,6 +27,8 @@ const getInitialValue = () => ({ width: 0, height: 0 })
 
 const parseSize = (size) => size.split('x');
 
+const defaultOrientation = 'portrait';
+
 export class App extends React.Component {
   static propTypes = {
     sdk: PropTypes.object.isRequired
@@ -38,7 +40,7 @@ export class App extends React.Component {
     const sdkValue = props.sdk.field.getValue();
     const initialValue = getInitialValue();
     const value = sdkValue ? sdkValue : initialValue;
-    const orientation = 'landscape';
+    const orientation = defaultOrientation;
 
     this.state = { value, orientation };
   }
@@ -48,7 +50,9 @@ export class App extends React.Component {
 
     const orientationField = this.props.sdk.entry.fields.orientation;
 
-    orientationField.onValueChanged((orientation = 'landscape') => {
+    orientationField.onValueChanged((orientation = defaultOrientation) => {
+      if (this.state.orientation === orientation) return; // prevent initial change
+
       this.setState((prevState) => {
         return { ...prevState, orientation, value: getInitialValue() };
       });
