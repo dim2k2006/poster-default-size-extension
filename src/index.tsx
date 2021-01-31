@@ -31,7 +31,7 @@ const sizes: SizeItem[] = [
   { orientation: 'landscape', width: 30, height: 21 },
 
   { orientation: 'square', width: 50, height: 50 },
-  { orientation: 'square', width: 30, height: 30 },
+  { orientation: 'square', width: 23, height: 23 },
 ];
 
 const getInitialSize = (): Size => ({ width: 0, height: 0 })
