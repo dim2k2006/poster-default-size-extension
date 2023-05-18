@@ -29,7 +29,6 @@ const sizes: SizeItem[] = [
   { orientation: 'portrait', width: 30, height: 130 },
   { orientation: 'portrait', width: 29.7, height: 42 },
   { orientation: 'portrait', width: 21, height: 30 },
-  { orientation: 'portrait', width: 20, height: 30 },
   { orientation: 'portrait', width: 10.5, height: 14.8 },
   { orientation: 'portrait', width: 10, height: 15 },
 
@@ -39,6 +38,7 @@ const sizes: SizeItem[] = [
   { orientation: 'landscape', width: 50, height: 40 },
   { orientation: 'landscape', width: 40, height: 30 },
   { orientation: 'landscape', width: 30, height: 21 },
+  { orientation: 'landscape', width: 30, height: 20 },
   { orientation: 'landscape', width: 14.8, height: 10.5 },
 
   { orientation: 'square', width: 50, height: 50 },
