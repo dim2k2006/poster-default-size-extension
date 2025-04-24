@@ -20,10 +20,14 @@ interface SizeItem extends Size {
 }
 
 const sizes: SizeItem[] = [
+  { orientation: 'portrait', width: 100, height: 150 },
+  { orientation: 'portrait', width: 90, height: 120 },
+  { orientation: 'portrait', width: 60, height: 90 },
   { orientation: 'portrait', width: 60, height: 80 },
   { orientation: 'portrait', width: 59, height: 79 },
   { orientation: 'portrait', width: 50, height: 70 },
   { orientation: 'portrait', width: 49, height: 69 },
+  { orientation: 'portrait', width: 40, height: 60 },
   { orientation: 'portrait', width: 40, height: 55 },
   { orientation: 'portrait', width: 40, height: 50 },
   { orientation: 'portrait', width: 39, height: 49 },
